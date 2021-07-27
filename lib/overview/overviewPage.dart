@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:draw_graph/draw_graph.dart';
@@ -12,6 +14,23 @@ class OverviewPage extends StatefulWidget {
 }
 
 class _OverviewPageState extends State<OverviewPage> {
+  int maxNum(confirmed, recovered) {
+    int max1 = 0;
+    int max2 = 0;
+    int maximum = 0;
+    for (int i = 0; i < confirmed.length; i++) {
+      if (int.parse(confirmed[i].toString()) > max1) {
+        max1 = int.parse(confirmed[i].toString());
+      }
+      if (int.parse(recovered[i].toString()) > max2) {
+        max2 = int.parse(recovered[i].toString());
+      }
+    }
+    maximum = max(max1, max2);
+    print(maximum);
+    return maximum;
+  }
+
   List<double> parseSeries(List<dynamic> data, total) {
     // int value = int.parse(total.toString());
     List<int> parsedData = [];
@@ -66,7 +85,7 @@ class _OverviewPageState extends State<OverviewPage> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Cases Reported Today",
+                                  "Cases Reported in India Today",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -105,7 +124,7 @@ class _OverviewPageState extends State<OverviewPage> {
                                         child: Text(
                                           info2['recovered'].toString(),
                                           style: TextStyle(
-                                              fontSize: 36,
+                                              fontSize: 30,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.green),
                                         ),
@@ -130,7 +149,7 @@ class _OverviewPageState extends State<OverviewPage> {
                                         child: Text(
                                           info2['deceased'].toString(),
                                           style: TextStyle(
-                                              fontSize: 36,
+                                              fontSize: 30,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red),
                                         ),
@@ -139,64 +158,66 @@ class _OverviewPageState extends State<OverviewPage> {
                                   ),
                                 ],
                               ),
-                              // Center(
-                              //   child: new StreamBuilder<DocumentSnapshot>(
-                              //     stream: OverviewPage._firebase
-                              //         .collection('countryTimeSeries')
-                              //         .doc('TT')
-                              //         .snapshots(),
-                              //     builder: (context,
-                              //         AsyncSnapshot<DocumentSnapshot>
-                              //             snapshot) {
-                              //       if (!snapshot.hasData) {
-                              //         return Center(
-                              //             child: CircularProgressIndicator());
-                              //       }
-                              //       var infoSeries = snapshot.data!;
-
-                              //       final List<Feature> features = [
-                              //         Feature(
-                              //           title: "Recovered",
-                              //           color: Colors.green,
-                              //           data: parseSeries(
-                              //               infoSeries['recovered'],
-                              //               info['confirmed']),
-                              //         ),
-                              //         Feature(
-                              //           title: "Death",
-                              //           color: Colors.red,
-                              //           data: parseSeries(
-                              //               infoSeries['deceased'],
-                              //               info['confirmed']),
-                              //         ),
-                              //         Feature(
-                              //           title: "Total Cases",
-                              //           color: Colors.grey,
-                              //           data: parseSeries(
-                              //               infoSeries['confirmed'],
-                              //               info['confirmed']),
-                              //         ),
-                              //       ];
-                              //       return Container(
-                              //         child: Padding(
-                              //           padding: const EdgeInsets.all(4.0),
-                              //           child: LineGraph(
-                              //             features: features,
-                              //             size: Size(
-                              //                 MediaQuery.of(context).size.width,
-                              //                 220),
-                              //             labelX:
-                              //                 getSpaces(infoSeries['dates']),
-                              //             labelY: [],
-                              //             graphOpacity: 0.1,
-                              //             showDescription: true,
-                              //             graphColor: Colors.black87,
-                              //           ),
-                              //         ),
-                              //       );
-                              //     },
-                              //   ),
-                              // ),
+                              Center(
+                                child: new StreamBuilder<DocumentSnapshot>(
+                                  stream: OverviewPage._firebase
+                                      .collection('countryTimeSeries')
+                                      .doc('TT')
+                                      .snapshots(),
+                                  builder: (context,
+                                      AsyncSnapshot<DocumentSnapshot>
+                                          snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    }
+                                    var infoSeries1 = snapshot.data!;
+                                    var maximum = maxNum(
+                                        infoSeries1['deltaConfirmed'],
+                                        infoSeries1['deltaRecovered']);
+                                    final List<Feature> features = [
+                                      Feature(
+                                          title: "Recovered",
+                                          color: Colors.green,
+                                          data: parseSeries(
+                                            infoSeries1['deltaRecovered'],
+                                            maximum,
+                                          )),
+                                      Feature(
+                                        title: "Death",
+                                        color: Colors.red,
+                                        data: parseSeries(
+                                            infoSeries1['deltaDeceased'],
+                                            maximum),
+                                      ),
+                                      Feature(
+                                        title: "Total Cases",
+                                        color: Colors.grey,
+                                        data: parseSeries(
+                                            infoSeries1['deltaConfirmed'],
+                                            maximum),
+                                      ),
+                                    ];
+                                    return Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: LineGraph(
+                                          features: features,
+                                          size: Size(
+                                              MediaQuery.of(context).size.width,
+                                              220),
+                                          labelX:
+                                              getSpaces(infoSeries1['dates']),
+                                          labelY: [],
+                                          graphOpacity: 0.1,
+                                          showDescription: true,
+                                          graphColor: Colors.black87,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -267,7 +288,7 @@ class _OverviewPageState extends State<OverviewPage> {
                                           child: Text(
                                             info['recovered'].toString(),
                                             style: TextStyle(
-                                                fontSize: 36,
+                                                fontSize: 30,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.green),
                                           ),
@@ -292,7 +313,7 @@ class _OverviewPageState extends State<OverviewPage> {
                                           child: Text(
                                             info['deceased'].toString(),
                                             style: TextStyle(
-                                                fontSize: 36,
+                                                fontSize: 30,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.red),
                                           ),
