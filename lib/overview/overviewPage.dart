@@ -12,14 +12,27 @@ class OverviewPage extends StatefulWidget {
 }
 
 class _OverviewPageState extends State<OverviewPage> {
-  // parseSeries(data, total) {
-  //   List parsedData = [];
-  //   for (int i = 0; i < data.length; i += 100) {
-  //     parsedData
-  //         .add(double.parse(int.parse(data[i].toString()) / int.parse(total.toString())));
-  //   }
-  //   return parsedData;
-  // }
+  List<double> parseSeries(List<dynamic> data, total) {
+    // int value = int.parse(total.toString());
+    List<int> parsedData = [];
+    for (int i = 0; i < data.length; i++) {
+      parsedData.add(data[i]);
+    }
+    List<double> series = [];
+    for (int i = 309; i < parsedData.length; i++) {
+      series.add(parsedData[i] / 31440492);
+    }
+    // print(parsedData[2]);
+    return series;
+  }
+
+  List<String> getSpaces(List<dynamic> data) {
+    List<String> space = [];
+    for (int i = 309; i < data.length; i++) {
+      space.add('');
+    }
+    return space;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,49 +154,46 @@ class _OverviewPageState extends State<OverviewPage> {
                                             child: CircularProgressIndicator());
                                       }
                                       var infoSeries = snapshot.data!;
-                                      print(infoSeries['dates'].toString());
 
                                       final List<Feature> features = [
                                         Feature(
-                                          title: "Flutter",
-                                          color: Colors.blue,
-                                          data: [1, 0.8, 0.6, 0.7, 0.3, 0.1],
+                                          title: "Total Cases",
+                                          color: Colors.grey,
+                                          data: parseSeries(
+                                              infoSeries['confirmed'],
+                                              info['confirmed']),
                                         ),
                                         Feature(
-                                          title: "Kotlin",
-                                          color: Colors.black,
-                                          data: [1, 0.8, 0.6, 0.7, 0.3, 0.1],
+                                          title: "Recovered",
+                                          color: Colors.green,
+                                          data: parseSeries(
+                                              infoSeries['recovered'],
+                                              info['confirmed']),
                                         ),
                                         Feature(
-                                          title: "Java",
-                                          color: Colors.orange,
-                                          data: [0.4, 0.2, 0.9, 0.5, 0.6, 0.4],
+                                          title: "Death",
+                                          color: Colors.red,
+                                          data: parseSeries(
+                                              infoSeries['deceased'],
+                                              info['confirmed']),
                                         ),
                                       ];
                                       return Container(
-                                        child: LineGraph(
-                                          features: features,
-                                          size: Size(
-                                              MediaQuery.of(context).size.width,
-                                              300),
-                                          labelX: [
-                                            'Day 1',
-                                            'Day 2',
-                                            'Day 3',
-                                            'Day 4',
-                                            'Day 5',
-                                            'Day 6'
-                                          ],
-                                          labelY: [
-                                            ' ',
-                                            ' ',
-                                            ' ',
-                                            ' ',
-                                            ' ',
-                                            ' '
-                                          ],
-                                          showDescription: true,
-                                          graphColor: Colors.black87,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: LineGraph(
+                                            features: features,
+                                            size: Size(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                200),
+                                            labelX:
+                                                getSpaces(infoSeries['dates']),
+                                            labelY: [],
+                                            showDescription: false,
+                                            graphColor: Colors.black87,
+                                          ),
                                         ),
                                       );
                                     },
