@@ -3,6 +3,7 @@ import 'package:covid19_stats/overview/overviewPage.dart';
 import 'package:covid19_stats/vaccination/vacinationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,29 +32,19 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: new BottomNavyBar(
         items: [
           BottomNavyBarItem(
-              icon: FittedBox(
-                child: Image.asset('assets/corona.png'),
-                fit: BoxFit.fill,
-              ),
+              icon: Icon(FontAwesome5.viruses),
               title: Text(
                 "  Overview",
               ),
               activeColor: Colors.redAccent),
           BottomNavyBarItem(
-              icon: FittedBox(
-                child: Image.asset('assets/graph.png'),
-                fit: BoxFit.fill,
-              ),
+              icon: Icon(FontAwesome5.chart_line),
               title: Text("  Cases"),
               activeColor: Colors.blueAccent),
           BottomNavyBarItem(
-              icon: FittedBox(
-                child: Image.asset('assets/syringe.png'),
-                fit: BoxFit.fill,
-              ),
+              icon: Icon(FontAwesome5.syringe),
               title: Text(
                 "  Vaccine",
-                style: TextStyle(color: Colors.blue[900]),
               ),
               activeColor: Colors.lightBlue)
         ],
