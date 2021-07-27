@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:draw_graph/draw_graph.dart';
@@ -56,6 +56,22 @@ class _OverviewPageState extends State<OverviewPage> {
     return space;
   }
 
+  var time = '';
+  @override
+  void initState() {
+    getTime();
+    super.initState();
+  }
+
+  getTime() async {
+    DocumentSnapshot variable = await OverviewPage._firebase
+        .collection('countryDailyDelta')
+        .doc('lastUpdated')
+        .get();
+    time =
+        "Last Updated: ${DateFormat('dd/MM/yy hh:mm a').format(DateTime.fromMicrosecondsSinceEpoch(variable['time'].microsecondsSinceEpoch))}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -63,6 +79,7 @@ class _OverviewPageState extends State<OverviewPage> {
       child: Container(
         child: Column(
           children: [
+            Text(time.toString()),
             Center(
                 child: new StreamBuilder<DocumentSnapshot>(
                     stream: OverviewPage._firebase
