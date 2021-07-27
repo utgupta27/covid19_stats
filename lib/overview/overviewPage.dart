@@ -363,7 +363,7 @@ class _OverviewPageState extends State<OverviewPage> {
                                               info['confirmed']),
                                         ),
                                         Feature(
-                                          title: "Death",
+                                          title: "Deceased",
                                           color: Colors.red,
                                           data: parseSeries(
                                               infoSeries['deceased'],
@@ -519,14 +519,14 @@ class _OverviewPageState extends State<OverviewPage> {
                                         //       info['']),
                                         // ),
                                         Feature(
-                                          title: "Dose 1",
+                                          title: "Vaccine Dose 1",
                                           color: Colors.blue,
                                           data: parseSeries(
                                               infoSeries1['vaccinated1'],
                                               info['vaccinated1']),
                                         ),
                                         Feature(
-                                          title: "Dose 2",
+                                          title: "Vaccine Dose 2",
                                           color: Colors.deepPurple,
                                           data: parseSeries(
                                               infoSeries1['vaccinated2'],
