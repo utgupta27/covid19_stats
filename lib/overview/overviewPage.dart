@@ -20,17 +20,20 @@ class _OverviewPageState extends State<OverviewPage> {
     }
     List<double> series = [];
     for (int i = 309; i < parsedData.length; i++) {
-      series.add(parsedData[i] / 31440492);
+      series.add(parsedData[i] / int.parse(total.toString()));
     }
     // print(parsedData[2]);
     return series;
   }
 
   List<String> getSpaces(List<dynamic> data) {
+    int i;
     List<String> space = [];
-    for (int i = 309; i < data.length; i++) {
+    for (i = 309; i < data.length; i++) {
       space.add('');
     }
+    space[0] = "1 Jan 21";
+    space[i - 310] = "Today";
     return space;
   }
 
@@ -41,6 +44,164 @@ class _OverviewPageState extends State<OverviewPage> {
       child: Container(
         child: Column(
           children: [
+            Center(
+                child: new StreamBuilder<DocumentSnapshot>(
+                    stream: OverviewPage._firebase
+                        .collection('countryDailyDelta')
+                        .doc('TT')
+                        .snapshots(),
+                    builder:
+                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      var info2 = snapshot.data!;
+                      return Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Card(
+                          color: Colors.red[50],
+                          elevation: 5,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Cases Reported Today",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 4),
+                                child: Text(
+                                  info2['confirmed'].toString(),
+                                  style: TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[800]),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Recovered",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 0, 0, 4),
+                                        child: Text(
+                                          info2['recovered'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Deceased",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 0, 0, 4),
+                                        child: Text(
+                                          info2['deceased'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              // Center(
+                              //   child: new StreamBuilder<DocumentSnapshot>(
+                              //     stream: OverviewPage._firebase
+                              //         .collection('countryTimeSeries')
+                              //         .doc('TT')
+                              //         .snapshots(),
+                              //     builder: (context,
+                              //         AsyncSnapshot<DocumentSnapshot>
+                              //             snapshot) {
+                              //       if (!snapshot.hasData) {
+                              //         return Center(
+                              //             child: CircularProgressIndicator());
+                              //       }
+                              //       var infoSeries = snapshot.data!;
+
+                              //       final List<Feature> features = [
+                              //         Feature(
+                              //           title: "Recovered",
+                              //           color: Colors.green,
+                              //           data: parseSeries(
+                              //               infoSeries['recovered'],
+                              //               info['confirmed']),
+                              //         ),
+                              //         Feature(
+                              //           title: "Death",
+                              //           color: Colors.red,
+                              //           data: parseSeries(
+                              //               infoSeries['deceased'],
+                              //               info['confirmed']),
+                              //         ),
+                              //         Feature(
+                              //           title: "Total Cases",
+                              //           color: Colors.grey,
+                              //           data: parseSeries(
+                              //               infoSeries['confirmed'],
+                              //               info['confirmed']),
+                              //         ),
+                              //       ];
+                              //       return Container(
+                              //         child: Padding(
+                              //           padding: const EdgeInsets.all(4.0),
+                              //           child: LineGraph(
+                              //             features: features,
+                              //             size: Size(
+                              //                 MediaQuery.of(context).size.width,
+                              //                 220),
+                              //             labelX:
+                              //                 getSpaces(infoSeries['dates']),
+                              //             labelY: [],
+                              //             graphOpacity: 0.1,
+                              //             showDescription: true,
+                              //             graphColor: Colors.black87,
+                              //           ),
+                              //         ),
+                              //       );
+                              //     },
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      );
+                    })),
             Center(
               child: new StreamBuilder<DocumentSnapshot>(
                 stream: OverviewPage._firebase
@@ -57,7 +218,7 @@ class _OverviewPageState extends State<OverviewPage> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Card(
-                          color: Colors.grey[50],
+                          color: Colors.yellow[50],
                           elevation: 5,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -66,7 +227,7 @@ class _OverviewPageState extends State<OverviewPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "Total Cases of India",
+                                    "Total Cases Reported in India",
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -157,13 +318,6 @@ class _OverviewPageState extends State<OverviewPage> {
 
                                       final List<Feature> features = [
                                         Feature(
-                                          title: "Total Cases",
-                                          color: Colors.grey,
-                                          data: parseSeries(
-                                              infoSeries['confirmed'],
-                                              info['confirmed']),
-                                        ),
-                                        Feature(
                                           title: "Recovered",
                                           color: Colors.green,
                                           data: parseSeries(
@@ -177,6 +331,13 @@ class _OverviewPageState extends State<OverviewPage> {
                                               infoSeries['deceased'],
                                               info['confirmed']),
                                         ),
+                                        Feature(
+                                          title: "Total Cases",
+                                          color: Colors.grey,
+                                          data: parseSeries(
+                                              infoSeries['confirmed'],
+                                              info['confirmed']),
+                                        ),
                                       ];
                                       return Container(
                                         child: Padding(
@@ -187,17 +348,23 @@ class _OverviewPageState extends State<OverviewPage> {
                                                 MediaQuery.of(context)
                                                     .size
                                                     .width,
-                                                200),
+                                                220),
                                             labelX:
                                                 getSpaces(infoSeries['dates']),
                                             labelY: [],
-                                            showDescription: false,
+                                            graphOpacity: 0.1,
+                                            showDescription: true,
                                             graphColor: Colors.black87,
                                           ),
                                         ),
                                       );
                                     },
                                   ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [],
                                 )
                               ],
                             ),
@@ -207,7 +374,7 @@ class _OverviewPageState extends State<OverviewPage> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Card(
-                          color: Colors.grey[50],
+                          color: Colors.blue[50],
                           elevation: 5,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -254,9 +421,9 @@ class _OverviewPageState extends State<OverviewPage> {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 4),
                                           child: Text(
-                                            info['recovered'].toString(),
+                                            info['vaccinated1'].toString(),
                                             style: TextStyle(
-                                                fontSize: 36,
+                                                fontSize: 30,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.blue),
                                           ),
@@ -279,9 +446,9 @@ class _OverviewPageState extends State<OverviewPage> {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 4),
                                           child: Text(
-                                            info['deceased'].toString(),
+                                            info['vaccinated2'].toString(),
                                             style: TextStyle(
-                                                fontSize: 36,
+                                                fontSize: 30,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.blue[900]),
                                           ),
@@ -289,7 +456,68 @@ class _OverviewPageState extends State<OverviewPage> {
                                       ],
                                     ),
                                   ],
-                                )
+                                ),
+                                Center(
+                                  child: new StreamBuilder<DocumentSnapshot>(
+                                    stream: OverviewPage._firebase
+                                        .collection('countryTimeSeries')
+                                        .doc('TT')
+                                        .snapshots(),
+                                    builder: (context,
+                                        AsyncSnapshot<DocumentSnapshot>
+                                            snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                      var infoSeries1 = snapshot.data!;
+
+                                      final List<Feature> features = [
+                                        // Feature(
+                                        //   title: "Total Tested",
+                                        //   color: Colors.purple,
+                                        //   data: parseSeries(
+                                        //       infoSeries['tested'],
+                                        //       info['']),
+                                        // ),
+                                        Feature(
+                                          title: "Dose 1",
+                                          color: Colors.blue,
+                                          data: parseSeries(
+                                              infoSeries1['vaccinated1'],
+                                              info['vaccinated1']),
+                                        ),
+                                        Feature(
+                                          title: "Dose 2",
+                                          color: Colors.deepPurple,
+                                          data: parseSeries(
+                                              infoSeries1['vaccinated2'],
+                                              info['vaccinated1']),
+                                        ),
+                                      ];
+                                      // print(infoSeries1['vaccinated1']);
+                                      return Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: LineGraph(
+                                            features: features,
+                                            size: Size(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                220),
+                                            labelX:
+                                                getSpaces(infoSeries1['dates']),
+                                            labelY: [],
+                                            graphOpacity: 0.1,
+                                            showDescription: true,
+                                            graphColor: Colors.black87,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),

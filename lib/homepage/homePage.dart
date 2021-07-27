@@ -27,9 +27,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("COVID-19 Statistics"),
+        backgroundColor: Colors.blue[900],
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: new BottomNavyBar(
+        // backgroundColor: Colors.grey,
         items: [
           BottomNavyBarItem(
               icon: Icon(FontAwesome5.viruses),
