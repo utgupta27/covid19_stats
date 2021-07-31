@@ -26,7 +26,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("COVID-19 Statistics"),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)
+        ),
+        title: Center(child: Text("COVID-19 Statistics")),
         backgroundColor: Colors.blue[900],
       ),
       body: _screens[_currentIndex],

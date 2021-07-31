@@ -79,7 +79,7 @@ class _OverviewPageState extends State<OverviewPage> {
       child: Container(
         child: Column(
           children: [
-            Text(time.toString()),
+
             Center(
                 child: new StreamBuilder<DocumentSnapshot>(
                     stream: OverviewPage._firebase
@@ -95,10 +95,17 @@ class _OverviewPageState extends State<OverviewPage> {
                       return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                          ),
                           color: Colors.red[50],
                           elevation: 5,
                           child: Column(
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                child: Text(time.toString()),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
@@ -256,6 +263,9 @@ class _OverviewPageState extends State<OverviewPage> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)
+                          ),
                           color: Colors.yellow[50],
                           elevation: 5,
                           child: Container(
@@ -412,6 +422,9 @@ class _OverviewPageState extends State<OverviewPage> {
                       Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)
+                          ),
                           color: Colors.blue[50],
                           elevation: 5,
                           child: Container(
