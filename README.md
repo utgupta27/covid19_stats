@@ -31,5 +31,37 @@ COVID19 case-data & case-timeseries is provided by Ministry of Health and Family
   - Uses FireBase Cloud to store Data.
   - Data Sync across different platform and devices.
 
+<!-- ![Screenshot_20210804_101026_com example covid19_stats](https://user-images.githubusercontent.com/68506823/128123342-1b72e9b5-c5cf-4a41-aded-51ac8aa15d42.jpg)
+![Screenshot_20210804_101037_com example covid19_stats](https://user-images.githubusercontent.com/68506823/128123351-dd23a0a4-060b-42db-935b-c2d2bd839bb7.jpg)
+![Screenshot_20210804_101054_com example covid19_stats](https://user-images.githubusercontent.com/68506823/128123367-0f71cc2a-b247-4eac-9a74-77c23705d5b0.jpg)
+![Screenshot_20210804_101200_com example covid19_stats](https://user-images.githubusercontent.com/68506823/128123390-a7ccb76e-e18e-41a3-aa1e-5c1a8f406022.jpg)
+![Screenshot_20210804_101100_com example covid19_stats](https://user-images.githubusercontent.com/68506823/128123403-9e57d409-6a9e-4fd7-9e67-7b5d82c9d7a1.jpg)
+![Screenshot_20210804_101123_com example covid19_stats](https://user-images.githubusercontent.com/68506823/128123412-fb1fdebe-77eb-4e02-99ad-e616a658b9b3.jpg) -->
 
+## SnapShots
+<table>
+  <tr>
+    <td>Overview Page</td>
+     <td>Overview Page</td>
+    <td>Cases State Wise</td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/68506823/128123342-1b72e9b5-c5cf-4a41-aded-51ac8aa15d42.jpg" width=270 height=480></td>
+    <td><img src="https://user-images.githubusercontent.com/68506823/128123351-dd23a0a4-060b-42db-935b-c2d2bd839bb7.jpg" width=270 height=480></td>
+    <td><img src="https://user-images.githubusercontent.com/68506823/128123367-0f71cc2a-b247-4eac-9a74-77c23705d5b0.jpg" width=270 height=480></td>
+  </tr>
+ </table>
+ 
+ <table>
+  <tr>
+    <td>State wise Overview</td>
+     <td>Find Vaccine Centers</td>
+    <td>Available Centers</td>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/68506823/128123390-a7ccb76e-e18e-41a3-aa1e-5c1a8f406022.jpg" width=270 height=480></td>
+    <td><img src="https://user-images.githubusercontent.com/68506823/128123403-9e57d409-6a9e-4fd7-9e67-7b5d82c9d7a1.jpg" width=270 height=480></td>
+    <td><img src="https://user-images.githubusercontent.com/68506823/128123412-fb1fdebe-77eb-4e02-99ad-e616a658b9b3.jpg" width=270 height=480></td>
+  </tr>
+ </table>
 
