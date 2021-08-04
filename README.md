@@ -12,6 +12,9 @@
 
 
 A Cross-Platform Cloud Sync Application for Viewing daily COVID19 Statisics of India & can find the available vaccine centers of a given pincode.
+COVID19 case-data & case-timeseries is provided by Ministry of Health and Family Welfare, Government of India.
+<br>
+<a href="https://api.covid19india.org/" target="_blank"> COVID19-India API </a>
 
 
 ## Try Now
