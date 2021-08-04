@@ -135,7 +135,9 @@ class _VaccinationPageState extends State<VaccinationPage> {
                           textStyle: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold)),
                       onPressed: () {
-                        VaccinationPage.getData(pin.text, _date);
+                        // VaccinationPage.getData(pin.text, _date);
+                        VaccinePage.date = _date;
+                        VaccinePage.pin = pin.text;
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (_) => new VaccinePage()),
                         );

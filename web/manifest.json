@@ -1,6 +1,6 @@
 {
-    "name": "covid19_stats",
-    "short_name": "covid19_stats",
+    "name": "Covid 19 Statistics",
+    "short_name": "Covid 19 Statistics",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

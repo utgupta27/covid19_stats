@@ -27,8 +27,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)
-        ),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
         title: Center(child: Text("COVID-19 Statistics")),
         backgroundColor: Colors.blue[900],
       ),

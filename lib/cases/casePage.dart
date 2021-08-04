@@ -1,7 +1,6 @@
 import 'package:covid19_stats/cases/districtPage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lottie/lottie.dart';
 
 class CasePage extends StatefulWidget {
   const CasePage({Key? key}) : super(key: key);
